@@ -1,0 +1,44 @@
+CREATE DATABASE IF NOT EXISTS biblioteca_db;
+USE biblioteca_db;
+
+CREATE TABLE IF NOT EXISTS libros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100) NOT NULL,
+    autor VARCHAR(100) NOT NULL,
+    editorial VARCHAR(100) NOT NULL,
+    anio INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    carnet VARCHAR(30) NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS prestamos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    libro_id INT NOT NULL,
+    usuario_id INT NOT NULL,
+    fecha_prestamo DATE NOT NULL,
+    fecha_devolucion DATE NOT NULL,
+    estado VARCHAR(30) NOT NULL,
+    FOREIGN KEY (libro_id) REFERENCES libros(id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+INSERT INTO libros(titulo, autor, editorial, anio) VALUES
+('El Principito', 'Antoine de Saint-Exupery', 'Reynal & Hitchcock', 1943),
+('Cien Anios de Soledad', 'Gabriel Garcia Marquez', 'Sudamericana', 1967),
+('Don Quijote de la Mancha', 'Miguel de Cervantes', 'Francisco de Robles', 1605);
+
+INSERT INTO usuarios(nombre, carnet, correo, telefono) VALUES
+('Maynor Leon', 'U001', 'maynor@email.com', '5555-1111'),
+('Carlos Lopez', 'U002', 'carlos@email.com', '5555-2222'),
+('Andrea Perez', 'U003', 'andrea@email.com', '5555-3333');
+
+INSERT INTO prestamos(libro_id, usuario_id, fecha_prestamo, fecha_devolucion, estado) VALUES
+(1,1,'2026-05-29','2026-06-05','Activo'),
+(2,2,'2026-05-29','2026-06-05','Activo'),
+(3,3,'2026-05-29','2026-06-05','Devuelto');
